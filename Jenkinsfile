@@ -44,6 +44,7 @@ pipeline{
          stage('Push Jar to Nexus') {
             steps {
                 script{
+                        def readPomVersion = readMavenPom file: 'pom.xml'
                         nexusArtifactUploader artifacts: 
                         [
                             [
@@ -56,7 +57,8 @@ pipeline{
                         nexusVersion: 'nexus3', 
                         protocol: 'http', 
                         repository: 'maven-app-release', 
-                        version: '1.0.0'
+                        //version: '1.0.0' // this is manually setting jar version
+                        version: "${readPomVersion.version}"  // it will automatically increment the jar version
                     }
                 }
             }
