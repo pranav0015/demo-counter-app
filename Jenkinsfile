@@ -24,9 +24,18 @@ pipeline{
         }
         stage("Maven Build"){
             steps{
-                sh 'mvn clean install'
+                sh 'mvn clean install' // build jar
             }
         }
-
+        stage('Static Code Analysis') {
+        steps {
+            withSonarQubeEnv('sonarqubeserver') {
+                sh 'mvn clean verify sonar:sonar'
+                }
+            }
+        }
+               
+   
+        
     }
 }
