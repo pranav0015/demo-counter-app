@@ -4,7 +4,6 @@ pipeline{
 
      tools {
         maven 'maven'   // MUST match Jenkins tool name exactly
-        jdk 'jdk17'           // optional but recommended
     }
 
     stages{
