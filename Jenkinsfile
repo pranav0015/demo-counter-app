@@ -2,6 +2,11 @@ pipeline{
 
     agent any
 
+     tools {
+        maven 'Maven-3.9.12'   // MUST match Jenkins tool name exactly
+        jdk 'jdk17'           // optional but recommended
+    }
+
     stages{
         stage("Git Checkout"){
             steps{
