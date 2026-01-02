@@ -34,12 +34,32 @@ pipeline{
                 }
             }
         }
-         stage('Quality Gate Status') {
+        stage('Quality Gate Status') {
             steps {
                 script{
                         waitForQualityGate abortPipeline: false, credentialsId: 'sonar-api' // for checking code quality standards
                     }
                 }
             }
+         stage('Push Jar to Nexus') {
+            steps {
+                script{
+                        nexusArtifactUploader artifacts: 
+                        [
+                            [
+                                artifactId: 'springboot', classifier: '', file: 'target/Uber.jar', type: 'jar'
+                            ]
+                        ], 
+                        credentialsId: 'nexus-auth', 
+                        groupId: 'com.example', 
+                        nexusUrl: '13.126.178.19:8081', 
+                        nexusVersion: 'nexus3', 
+                        protocol: 'http', 
+                        repository: 'maven-app-release', 
+                        version: '1.0.0'
+                    }
+                }
+            }
+        
         }       
 }
