@@ -77,8 +77,8 @@ pipeline{
             steps {
                 script{
                         withCredentials([string(credentialsId: 'dockerhub-auth', variable: 'dockerhub_cred')]) {
-                           // sh 'echo ${docherhub_cred} | docker login -u pranav20003 --password-stdin'
-                            sh 'docker login -u pranav2003 -p ${dockerhub_cred}'
+                            sh 'echo ${docherhub_cred} | docker login -u pranav20003 --password-stdin'
+                           // sh 'docker login -u pranav2003 -p ${dockerhub_cred}'
                             sh 'docker image push pranav20003/$JOB_NAME:v1.$BUILD_ID'
                             sh 'docker image push pranav20003/$JOB_NAME:latest'
                         }
@@ -89,6 +89,7 @@ pipeline{
         }       
 
 }
+
 
 
 
