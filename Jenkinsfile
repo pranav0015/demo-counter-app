@@ -28,9 +28,9 @@ pipeline{
             }
         }
         stage('Static Code Analysis') {
-        steps {
-            withSonarQubeEnv('sonarqubeserver') {
-                sh 'mvn clean verify sonar:sonar'
+            steps {
+                withSonarQubeEnv('sonarqubeserver') { // sonarqubeserver - server name configured in Jenkins
+                    sh 'mvn clean verify sonar:sonar'
                 }
             }
         }
