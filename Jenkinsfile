@@ -44,7 +44,9 @@ pipeline{
          stage('Push Jar to Nexus') {
             steps {
                 script{
-                        def readPomVersion = readMavenPom file: 'pom.xml'
+                        def readPomVersion = readMavenPom file: 'pom.xml' // for this we need pipeline utility steps plugin to be installed
+                        def nexusRepo = readPomVersion.version.endsWith("SNAPSHOT") ? "maven-app-snapshot" : "maven-app-release" // If devloper push snpashot then push it to snapshot repo if it is release then push it to release repo
+
                         nexusArtifactUploader artifacts: 
                         [
                             [
@@ -56,7 +58,7 @@ pipeline{
                         nexusUrl: '13.126.178.19:8081', 
                         nexusVersion: 'nexus3', 
                         protocol: 'http', 
-                        repository: 'maven-app-release', 
+                        repository: "${nexusRepo}", 
                         //version: '1.0.0' // this is manually setting jar version
                         version: "${readPomVersion.version}"  // it will automatically increment the jar version
                     }
