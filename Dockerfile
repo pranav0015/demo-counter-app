@@ -8,10 +8,11 @@ RUN mvn install
 
 # In this second stage, we are using the artifact(Uber.jar) generated at path /target created in stage 1. 
 
-FROM openjdk:11.0
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/Uber.jar /app/
 EXPOSE 9090
 CMD ["java" "-jar", "Uber.jar" ] 
+
 
 
