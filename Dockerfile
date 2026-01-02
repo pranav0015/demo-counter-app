@@ -8,7 +8,7 @@ RUN mvn install
 
 # In this second stage, we are using the artifact(Uber.jar) generated at path /target created in stage 1. 
 
-FROM openjdk:11
+FROM openjdk:26
 WORKDIR /app
 COPY --from=build /app/target/Uber.jar /app/
 EXPOSE 9090
